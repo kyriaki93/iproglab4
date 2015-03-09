@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dinner planer</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div class="container-fluid" id="all">
+      <div class="row" id="all">
+        <div id = "startHeader" class="col-md-12" style="background-color:#efefef;">
+          <h1>HOMELETTE</h1><h6> From the best chefs in the world directly into your kitchen</h6>
+        </div> 
+      </div>
+      <!-- Home page -->
+      <div class="col-md-12" id="startView">
+        <div class="row">
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+          <div id="info" class="col-md-4" style="background-color:#efefef;">
+            <h2>A Home Dinner Service</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <br/>
+            <p>Start quickly!!</p>
+            <center><button class="btn btn-default" id="create" type="submit" style="margin: 0 0 5% 0;">Create New Dinner</button></center>
+            
+          </div>
+       
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      </div>
+      </div>
+      <!-- open side menu -->
+      	<div class="row">
+      		<div id="exampleView">
+            <div id="sideMenu">
+            <div class="col-md-2">
+            <h3>My planner</h3>
+              
+                  <div>
+                      People: <span id="numberOfGuests"></span>
+                  </div>
+                  <div>
+                	  <button id="minusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button id="plusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
+                  <div style="width:100%;padding:5% 0 5% 0;">
+             	  	<div style="width:80%;float:left;background-color:#efefef;">Dish Name</div>
+             	  	<div style="width:20%;float:right;background-color:#efefef;">Cost</div>
+          	      </div>
+
+          		  <div style="width:100%;">
+            		<div style="width:80%;float:left;"><span id="dishName"></span></div>
+                	<div style="width:20%;float:right;"><span id="dishPrice"></span></div>
+          		  </div>
+         		  <br />
+        		  <br />
+            
+          		  <div style="padding:5% 0 0 0;">
+            		<p align="right">SEK <span id="totalCost"></span></p>
+          		  </div>
+
+           		  <center><button class='btn btn-default' id='confirm' type='submit'>Confirm Dinner</button></center>
+              </div>
+              </div>
+              <!-- Open search menu and select bar -->
+              <div class="col-md-10">
+				  <div><span id="searchM"</span></div>
+	          </div>
+             <!-- Select view -->
+  			 <div><span id="allDishes"></span></div>
+             <!-- Single dish view -->
+             <div><span id="dishView"></span></div> 
+             <!-- Menu page view -->
+             <div class="col-md-12"><span id="menuOverView"></span></div>  
+             <!-- print page view --> 
+             <div><span id="printPage"></span></div> 
+                   
+            </div>
+            </div>
+            
+           
+
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+  	<!-- The application JavaScript code -->
+    <script src="js/app.js"></script>
+    <script src="js/model/dinnerModel.js"></script>
+    <!-- <script src="js/controller/MainController.js"></script> -->
+
+    <script src="js/view/exampleView.js"></script>
+    <script src="js/controller/exampleViewController.js"></script>
+
+    <script src="js/view/startView.js"></script>
+    <script src="js/controller/StartController.js"></script>
+
+
+  </body>
+</html>
