@@ -101,9 +101,9 @@ var ExampleView = function (container,model) {
     div += '<button id="searchButton" class="btn btn-default" type="button">Search</button></span></div></div>'
     div += '<div class="col-md-4">'
     div += '<select id ="typeSelect" class="form-control" multiple="multiple">'
-    div += '<option class="dropdown" id="starter" value"starter">Starter</option>'
-    div += '<option class="dropdown" id="main" value="main">Main</option>'
-    div += '<option class="dropdown" id="dessert" value="dessert" selected="selected">Dessert</option></select></div></div></div>';
+    div += '<option class="dropdown" id="Starters" value"starter">Starter</option>'
+    div += '<option class="dropdown" id="Main Dish" value="main">Main</option>'
+    div += '<option class="dropdown" id="Desserts" value="dessert" selected="selected">Dessert</option></select></div></div></div>';
 	
 	return div;
 	}
@@ -122,21 +122,13 @@ var ExampleView = function (container,model) {
 		
 	this.getDishes = function() {
 	
-	var selectedType = model.getCurrentType();
+	var selectedType = 'Desserts';
 	var filter = model.searchWord;
 	
 	var get = model.getAllDishes(selectedType, filter);
 		var div = '';
-		div += '<div class="row">';
-		for(i=0;i<get.length;i++){
-			var dish = get[i];
-			div += "<div class='col-md-3' style='margin:1% 1% 0 1%;'><br />"
-			div += "<center><img class='images' id='"+ dish.id +"' src=images/"+dish.image+" width=100%></center><br/><br/>";
-			div += "<div id='foodhead'><center><h3>"+dish.name+"</h3></center></div>";
-			div += "<p>"+dish.description +"</p></div>"
-		}
-		
-		div += "</div><br/><br/><br/><br/><br/></br>";
+		div += '<div id="hej">'
+    div += '</div>';
 		return div;
 	};
 		
@@ -152,7 +144,7 @@ var ExampleView = function (container,model) {
 
 	
 	//Single dish view//
-	this.dishView = container.find("#dishView");
+	/*this.dishView = container.find("#dishView");
 		
 	
 	this.getDish = function() {
@@ -269,7 +261,7 @@ var ExampleView = function (container,model) {
 	
 	this.num2 = container.find("#num2");
 	this.b = container.find("#goBackAgainBtn");
-
+*/
 	//When a update is detected --> runs
 	this.update = function (obj){
 		//side menu update
@@ -282,7 +274,7 @@ var ExampleView = function (container,model) {
 		//select view update
 		this.allDishes.html(this.getDishes);
 		this.images = container.find('.images');
-		
+		/*
 		//singleDish view update
 		this.dishView.html(this.getDish);
 		this.backBtn = container.find('#backBtn');
@@ -300,7 +292,7 @@ var ExampleView = function (container,model) {
 		this.num2 = container.find("#num2");
 		this.num2.html(model.getNumberOfGuests);
 		this.b = container.find("#goBackAgainBtn");
-
+*/
 		//refresh controller
 		exampleViewController.refresh();
 	}

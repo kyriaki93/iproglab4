@@ -3,7 +3,7 @@ var DinnerModel = function() {
 
 	var numGuest = 3;
 	var observers = [];
-	var currentType = 'dessert';
+	var currentType = 'Desserts';
 	var currentDish = 200;
 	this.searchWord = '';
 	this.currentId = 0;
@@ -172,299 +172,60 @@ var DinnerModel = function() {
 
 		return (price*numGuest);
 	}	
+	//////////////////////////////
+	//			API				//	
+	//////////////////////////////
 
-	//Removes dish from menu
-	this.removeDishFromMenu = function(id) {
-	//var dish = this.getDish(id);
-	//var type = dish.type; 
-	//console.log("removeDishFromMenu in dinnerModel");
-	//if(chosenDishes[type] === id) {
-	//	delete selectedDishes[type];
-	//	notifyObservers();
-	//	}
-
-	}
-
-	//function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")
-	//you can use the filter argument to filter out the dish by name or ingredient (use for search)
-	//if you don't pass any filter all the dishes will be returned
+	//NEEDS UPDATE
 	this.getAllDishes = function (type,filter) {
-	  return $(dishes).filter(function(index,dish) {
-		var found = true;
-		if(filter){
-			found = false;
-			$.each(dish.ingredients,function(index,ingredient) {
-				if(ingredient.name.indexOf(filter)!=-1) {
-					found = true;
-				}
-			});
-			if(dish.name.indexOf(filter) != -1)
-			{
-				found = true;
-			}
-		}
-	  	return dish.type == type && found;
-	  });	
+	    var apiKey = "dvxrV2fipnzly1OxypUK685yXpq8i4v1";
+		var url = "http://api.bigoven.com/recipes?api_key="+apiKey+"&pg=2&rpp=5&any_kw="+type;
+		$.ajax({
+			type: "GET",
+			dataType: 'json',
+			cache: false,
+			url: url,
+			success: function(data){
+				// Parse the  data:
+        		var resultsString = "";
+        		for (var i in data.Results){
+            		console.log( data.Results[i] );
+					resultsString += "<div class='col-md-3' style='margin:1% 1% 0 1%;'><br/>"
+					resultsString += "<center><img class ='images' id='"+ data.Results[i].RecipeID +"' width='300' src='"+data.Results[i].ImageURL+"' ></center><br/><br/> ";
+           			resultsString += "<div id='foodhead'><center><h3>"+data.Results[i].Title+"</h3></center></div></div>";
+        }
+		
+		//selectView
+        $("#hej").html(resultsString);
+			},
+			error: function(xhr,status,error) {
+       			console.error(error);
+				notifyObservers();
+     	 }
+		});
 	}
 
+	//NEEDS UPDATE
 	//function that returns a dish of specific ID
+	
 	this.getDish = function (id) {
-	  for(key in dishes){
-			if(dishes[key].id == id) {
-				return dishes[key];
+		var apiKey = "dvxrV2fipnzly1OxypUK685yXpq8i4v1";
+		var recipeID = id;
+		var url = "http://api.bigoven.com/recipe/" + recipeID + "?api_key="+apiKey;
+		$.ajax({
+			type: "GET",
+			dataType: 'json',
+			cache: false,
+			url: url,
+			success: function(data){
+				console.log(data);
 			}
-		}
+				
+		});
+		
 	}
 
 
-	// the dishes variable contains an array of all the 
-	// dishes in the database. each dish has id, name, type,
-	// image (name of the image file), description and
-	// array of ingredients. Each ingredient has name, 
-	// quantity (a number), price (a number) and unit (string 
-	// defining the unit i.e. "g", "slices", "ml". Unit
-	// can sometimes be empty like in the example of eggs where
-	// you just say "5 eggs" and not "5 pieces of eggs" or anything else.
-	var dishes = [{
-			'id':1,
-		'name':'Apple Walnut Crostini',
-		'type':'starter',
-		'image':'apple.jpg',
-		'description':"In a large mixing bowl, beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. Soak bread slices in the egg mixture until saturated. Heat a lightly oiled griddle or frying pan over medium high heat. Brown slices on both sides, sprinkle with cinnamon and serve hot.",
-		'ingredients':[{ 
-			'name':'eggs',
-			'quantity':1,
-			'unit':'',
-			'price':10
-			},{
-			'name':'milk',
-			'quantity':30,
-			'unit':'ml',
-			'price':6
-			},{
-			'name':'brown sugar',
-			'quantity':7,
-			'unit':'g',
-			'price':1
-			},{
-			'name':'nutmeg',
-			'quantity':0.5,
-			'unit':'g',
-			'price':12
-			},{
-			'name':'white bread',
-			'quantity':2,
-			'unit':'slices',
-			'price':2
-			}]
-		},{
-		'id':2,
-		'name':'Black Bean Cakes',
-		'type':'starter',
-		'image':'black.jpg',
-		'description':"Place beans in a large pot and add water until beans are submerged by 3 to 4 inches. Add the garlic and onion, squeeze in orange juice, then add the squeezed orange halves. Cover and place over high heat until water comes to a boil, then uncover pot and reduce heat to a bare simmer. Cook until beans are completely tender and creamy, 1 to 2 hours, stirring occasionally, and adding water if tops of beans become exposed.",
-		'ingredients':[{ 
-			'name':'dry yeast',
-			'quantity':0.5,
-			'unit':'g',
-			'price':4
-			},{
-			'name':'warm water',
-			'quantity':30,
-			'unit':'ml',
-			'price':0
-			},{
-			'name':'flour',
-			'quantity':15,
-			'unit':'g',
-			'price':2
-			}]
-		},{
-		'id':3,
-		'name':'Salad',
-		'type':'starter',
-		'image':'salad.jpg',
-		'description':"Mix collard greens, kale, romaine, cabbage, pear, onion, orange bell pepper, avocado, carrot, tomatoes, walnuts, and raisins together in a large bowl. Combine olive oil, vinegar, honey, oregano, chili powder, mustard, garlic, salt, and black pepper in a glass jar with a lid. Cover jar with lid and shake vigorously until dressing is well mixed. Pour dressing over salad; toss to coat.",
-		'ingredients':[{ 
-			'name':'round Brie cheese',
-			'quantity':10,
-			'unit':'g',
-			'price':8
-			},{
-			'name':'raspberry preserves',
-			'quantity':15,
-			'unit':'g',
-			'price':10
-			},{
-			'name':'peaches',
-			'quantity':1,
-			'unit':'',
-			'price':4
-			}]
-		},{
-		'id':100,
-		'name':'Chicken Salad',
-		'type':'main',
-		'image':'chicken.jpg',
-		'description':"Preheat an oven to 400 degrees F (200 degrees C). Place the beef into a mixing bowl, and season with salt, onion, garlic salt, Italian seasoning, oregano, red pepper flakes, hot pepper sauce, and Worcestershire sauce; mix well. Add the milk, Parmesan cheese, and bread crumbs.",
-		'ingredients':[{ 
-			'name':'ground beef',
-			'quantity':115,
-			'unit':'g',
-			'price':20
-			},{
-			'name':'sea salt',
-			'quantity':0.7,
-			'unit':'g',
-			'price':3
-			},{
-			'name':'small onion',
-			'quantity':0.25,
-			'unit':'',
-			'price':2
-			},{
-			'name':'garlic salt',
-			'quantity':0.7,
-			'unit':'g',
-			'price':2
-			},{
-			'name':'Italian seasoning',
-			'quantity':0.6,
-			'unit':'g',
-			'price':3
-			},{
-			'name':'dried oregano',
-			'quantity':0.3,
-			'unit':'g',
-			'price':3
-			},{
-			'name':'red pepper',
-			'quantity':0.6,
-			'unit':'g',
-			'price':3
-			},{
-			'name':'Worcestershire',
-			'quantity':6,
-			'unit':'ml',
-			'price':7
-			},{
-			'name':'milk',
-			'quantity':20,
-			'unit':'ml',
-			'price':4
-			},{
-			'name':'Parmesan cheese',
-			'quantity':5,
-			'unit':'g',
-			'price':8
-			},{
-			'name':'bread crumbs',
-			'quantity':15,
-			'unit':'g',
-			'price':4
-			}]
-		},{
-		'id':101,
-		'name':'Pizza',
-		'type':'main',
-		'image':'pizza.jpg',
-		'description':"In a large mixing bowl, combine flours and salt. In a small mixing bowl, stir together 200 grams (about 1 cup) lukewarm tap water, the yeast and the olive oil, then pour it into flour mixture. Knead with your hands until well combined, approximately 3 minutes, then let the mixture rest for 15 minutes.",
-		'ingredients':[{ 
-			'name':'ingredient 1',
-			'quantity':1,
-			'unit':'pieces',
-			'price':8
-			},{
-			'name':'ingredient 2',
-			'quantity':15,
-			'unit':'g',
-			'price':7
-			},{
-			'name':'ingredient 3',
-			'quantity':10,
-			'unit':'ml',
-			'price':4
-			}]
-		},{
-		'id':102,
-		'name':'Chili Soup',
-		'type':'main',
-		'image':'soup.jpg',
-		'description':"Heat a large Dutch oven over medium-high heat. Remove casings from sausage. Add sausage, onion, and the next 4 ingredients (onion through jalapeño) to pan; cook 8 minutes or until sausage and beef are browned, stirring to crumble.Add chili powder and the next 7 ingredients (chili powder through bay leaves), and cook for 1 minute, stirring constantly.",
-		'ingredients':[{ 
-			'name':'ingredient 1',
-			'quantity':1,
-			'unit':'pieces',
-			'price':4
-			},{
-			'name':'ingredient 2',
-			'quantity':12,
-			'unit':'g',
-			'price':7
-			},{
-			'name':'ingredient 3',
-			'quantity':6,
-			'unit':'ml',
-			'price':4
-			}]
-		},{
-		'id':200,
-		'name':'Chocolate Ice cream',
-		'type':'dessert',
-		'image':'ice.jpg',
-		'description':" First put the dry ingredients in a bowl. Add the milk and cream and mix until combined. Pour the mixture into your ice cream maker and mix according to the directions for your machine. After 30 minutes it is ready to be put into a container to finishing freezing in the freezer.",
-		'ingredients':[{ 
-			'name':'Cocoa',
-			'quantity':1,
-			'unit':'cup',
-			'price':6
-			},{
-			'name':'Brown sugar',
-			'quantity':3/4,
-			'unit':'cup',
-			'price':3
-			},{
-			'name':'Milk',
-			'quantity':1/2,
-			'unit':'cup',
-			'price':2
-			},{
-			'name':'Heavy cream',
-			'quantity':3,
-			'unit':'cup',
-			'price':9
-			},{
-			'name':'Vanilla',
-			'quantity':1,
-			'unit':'tablespoon',
-			'price':4
-			}]
-		},{
-		'id':201,
-		'name':'Vanilla Ice cream',
-		'type':'dessert',
-		'image':'vanilla.jpg',
-		'description':"Pour everything into the bowl of a mixer or whisk in a bowl by hand. Pour it into your ice cream maker and freeze according to the directions. When it is done, put it into a container and let it freeze for 2 hours or until frozen.",
-		'ingredients':[{ 
-			'name':'ice cream',
-			'quantity':100,
-			'unit':'ml',
-			'price':7
-			}]
-		},{
-		'id':202,
-		'name':'Strawberry Ice cream',
-		'type':'dessert',
-		'image':'strawberry.jpg',
-		'description':"In a bowl, add 1/2 cup sugar to the strawberries. Add the lemon juice. Give this strawberry a good sir and let it sit for 2 hours at room temperature. After two hours, the strawberries will have let go of their juice and created a yummy syrup.",
-		'ingredients':[{ 
-			'name':'ice cream',
-			'quantity':100,
-			'unit':'ml',
-			'price':8
-			}]
-			
-		}
-	];
 
-}
+
+} 
