@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dinner planer</title>
+    <title>Labb 4</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
   </head>
-
   <body>
-    <div class="container-fluid" id="all">
+	<div class="container-fluid">
       <div class="row" id="all">
-        <div id = "startHeader" class="col-md-12" style="background-color:#efefef;">
-          <h1>HOMELETTE</h1><h6> From the best chefs in the world directly into your kitchen</h6>
-        </div> 
+      	<div class="mainHeader">
+        	<div id = "startHeader" class="col-md-12" style="background-color:#efefef;">
+          	<h1>HOMELETTE</h1><h6> From the best chefs in the world directly into your kitchen</h6>
+        	</div> 
+    	</div>
       </div>
       <!-- Home page -->
-      <div class="col-md-12" id="startView">
+      <div class="col-md-12" id="divOfStartscreenness">
         <div class="row">
         <br/><br/><br/><br/><br/><br/><br/><br/>
           <div id="info" class="col-md-4" style="background-color:#efefef;">
@@ -34,74 +34,81 @@
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
       </div>
-      <!-- open side menu -->
-      	<div class="row">
-      		<div id="exampleView">
-            <div id="sideMenu">
-            <div class="col-md-2">
-            <h3>My planner</h3>
-              
-                  <div>
-                      People: <span id="numberOfGuests"></span>
-                  </div>
-                  <div>
-                	  <button id="minusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-                      <button id="plusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
-                  </div>
-                  <div style="width:100%;padding:5% 0 5% 0;">
-             	  	<div style="width:80%;float:left;background-color:#efefef;">Dish Name</div>
-             	  	<div style="width:20%;float:right;background-color:#efefef;">Cost</div>
-          	      </div>
+      <!-- SELECT DISH VIEW-->
+		<div id="selectDishView" style="display:none;">
+				<div class="col-md-9">
+					<div id="search">
+						<h3> SELECT DISH </h3>
+						<hr id="priceDivider">
+					  	<div class="form-inline offset">
+					    	<input type="text submit" class="form-control" placeholder="Enter key words" id="searchBar">
+							<button type="submit" class="btn btn-warning" id="searchButton">Search</button>
+						</div>
+			  		</div>
+					<span id="allDishes"></span>
+		  		</div>
+		</div>
+		
+		<!-- DETAIL VIEWE -->
+		<div id="dishDetailView" style="display: none;">
+			<span id="detailDish"></span>
+		</div>
 
-          		  <div style="width:100%;">
-            		<div style="width:80%;float:left;"><span id="dishName"></span></div>
-                	<div style="width:20%;float:right;"><span id="dishPrice"></span></div>
-          		  </div>
-         		  <br />
-        		  <br />
+		<!-- SIDE MENU -->
+		<div id="exampleView" style="display: none;">
+ 			<div class="row">
+      			<div id="exampleViewa">
+            		<div id="sideMenu">
+            			<div class="col-md-2">
+            			<h3>My planner</h3>
+                  		<div>
+                      		People: <span id="numberOfGuests"></span>
+                  		</div>
+                  		<div>
+                	  		<button id="minusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+                      		<button id="plusGuest" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                  		</div>
+                  		<div style="width:100%;padding:5% 0 5% 0;">
+             	  			<div style="width:80%;float:left;background-color:#efefef;">Dish Name</div>
+             	  			<div style="width:20%;float:right;background-color:#efefef;">Cost</div>
+          	      		</div>
+
+          		  		<div style="width:100%;">
+            				<div style="width:80%;float:left;"><span id="dishName"></span></div>
+                			<div style="width:20%;float:right;"><span id="dishPrice"></span></div>
+          		  		</div>
+         		  		<br/>
+        		  		<br/>
             
-          		  <div style="padding:5% 0 0 0;">
-            		<p align="right">SEK <span id="totalCost"></span></p>
-          		  </div>
+          		  		<div style="padding:5% 0 0 0;">
+            				<p align="right">SEK <span id="totalCost"></span></p>
+          		  		</div>
 
-           		  <center><button class='btn btn-default' id='confirm' type='submit'>Confirm Dinner</button></center>
-              </div>
-              </div>
-              <!-- Open search menu and select bar -->
-              <div class="col-md-10">
-				  <div><span id="searchM"</span></div>
-	          </div>
-             <!-- Select view -->
-  			 <div id='test'><span id="allDishes"></span></div>
-             <!-- Single dish view -->
-             <div><span id="dishView"></span></div> 
-             <!-- Menu page view -->
-             <div class="col-md-12"><span id="menuOverView"></span></div>  
-             <!-- print page view --> 
-             <div><span id="printPage"></span></div> 
-                   
-            </div>
-            </div>
-            
-           
+           		  		<center><button class='btn btn-default' id='confirm' type='submit'>Confirm Dinner</button></center>
+              		</div>
+              	</div>
+			</div>
+			<span id="menuOverView"></span>
+		</div>
 
-    </div>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
-  	<!-- The application JavaScript code -->
-    <script src="js/app.js"></script>
-    <script src="js/model/dinnerModel.js"></script>
-    <!-- <script src="js/controller/MainController.js"></script> -->
 
-    <script src="js/view/exampleView.js"></script>
-    <script src="js/controller/exampleViewController.js"></script>
 
-    <script src="js/view/startView.js"></script>
-    <script src="js/controller/StartController.js"></script>
 
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+	<!-- The application JavaScript code -->
+	<script src="js/model/dinnerModel.js"></script>
+	<script src="js/view/exampleView.js"></script>
+	<script src="js/view/dishDetailView.js"></script>
+	<script src="js/view/selectDishView.js"></script>
+	<script src="js/view/dinnerOverviewView.js"></script>
+	<script src="js/view/dinnerPreparationView.js"></script>
+	<script src="js/controller/exampleViewController.js"></script>
+	<script src="js/controller/selectDishController.js"></script>
+	<script src="js/controller/dishDetailViewController.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/displayViews.js"></script>
 
   </body>
 </html>
