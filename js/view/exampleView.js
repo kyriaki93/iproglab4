@@ -27,7 +27,7 @@ var ExampleView = function (container, model) {
 				selected = model.menu;
 				for(var i=0; i < selected.length; i++){
 				dish = selected[i];
-				totaltPrice = model.getTotalMenuPrice();
+				totaltPrice = model.getTotalMenuPrice().toFixed(1);
 				output += totaltPrice;
 				}
 			}
@@ -63,6 +63,11 @@ var ExampleView = function (container, model) {
 	
 
 	this.getNames = function() {
+
+	$.fn.removeDishFromMenu = function(id) {
+		model.removeDishFromMenu(id);
+	};
+
 			var output ='';
 
 			if(model.menu == 0){
@@ -72,7 +77,7 @@ var ExampleView = function (container, model) {
 				selected = model.menu;
 				for(var i=0; i < selected.length; i++){
 					dish = selected[i];
-					output += '<span class="remove" id="'+ dish.RecipeID +'"><input type="submit" value="x" class="btn btn-default btn-xs"></span> '+dish.Title +'<br/>';
+					output += '<span class="remove" onclick="$(this).removeDishFromMenu('+dish.RecipeID+')"><input type="submit" value="x" class="btn btn-default btn-xs"></span> '+dish.Title +'<br/>';
 				}
 			}
 			return output;
@@ -82,6 +87,9 @@ var ExampleView = function (container, model) {
 	
 	this.dishName.html(this.getNames);
 
+	//////////////////
+	// MENU OVERVIEW//
+	//////////////////
 
 	this.menuOverView = container.find("#menuOverView");
 
@@ -100,12 +108,13 @@ var ExampleView = function (container, model) {
 				selected = model.menu;
 				for(var i=0; i < selected.length; i++){
 				dish = selected[i];
+				console.log(selected)
 				dishPrice = model.getPriceOfDish(dish).toFixed(1);
 
 				price = model.getTotalMenuPrice().toFixed(1);
 
 			 div += '<center><div class="row">';
-			 div += "<div class='col-md-3' style='margin: 2% 2% 2% 2%'><center><h2>"+ dish.Title+ "</h2><img src='"+dish.ImageURL+"' width='100%'><br/><h5>"+ dishPrice +" SEK</h5></center></div>";
+			 div += "<div class='col-md-3' style='margin: 2% 2% 2% 2%'><center><h2></h2><img src='"+dish.ImageURL+"' width='100%'><br/><h5>"+ dishPrice +" SEK</h5></center></div>";
 			 }
 			 div += '<div class="col-md-12"><h2>Total price: '+ price +' KR</h2><br><button class="btn btn-default" type="submit" onclick="print()">Print full recipe!</button></div>'; 
 			 div += '</div></center>'; 

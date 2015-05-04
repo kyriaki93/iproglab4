@@ -6,25 +6,27 @@ var DinnerModel = function() {
 	var current = 'none';
 	this.currentId = 0;
 	this.menu = [];
-	this.MenuName = [];
 
 	var observers = [];	
 	var dishes = [];
 	var loading = true;
 	var error = false;
  	
+ 	//get ID from confirm dish and put it in menu
 	this.changeId = function(id){
 		this.currentId = id;
 		console.log(this.currentId);
+
 		//put also the same id to menu
 		this.menu.push(current);
 		notifyObservers();
 	}
 
+	//get ID from confirmed dish and get that dish from API
 	this.setCurrentDish = function(id){
 		loading = true;
 		notifyObservers();
-		var apiKey = "dvxLl271adHi9kSJNj29sNWp256I35Y0";
+		var apiKey = "dvxrV2fipnzly1OxypUK685yXpq8i4v1";
 		var url= "http://api.bigoven.com/recipe/"+id+"?api_key="+apiKey;
 		$.ajax({
             type: "GET",
@@ -33,8 +35,6 @@ var DinnerModel = function() {
             url: url,
             success: function (data) {
                 current = data;
-                console.log(data);
-                console.log(current);
                 loading = false;
                 error = false;
                 notifyObservers();
@@ -42,6 +42,7 @@ var DinnerModel = function() {
             }, 
             error: function(){
             	error = true;
+            	alert('nej')
             	notifyObservers();
             }
         });
@@ -52,7 +53,6 @@ var DinnerModel = function() {
 		return current;
 		console.log(current);
 	}
-
 
  	this.isLoading = function(){
  		return loading;
@@ -93,15 +93,12 @@ var DinnerModel = function() {
 		return totalMenuPrice;
 	}
 
-
-
-
 	this.generateDishes = function(type, filter){
 		loading = true;
 		notifyObservers();
 		type = 'Desserts';
 
-		var apiKey = "dvxLl271adHi9kSJNj29sNWp256I35Y0";
+		var apiKey = "dvxrV2fipnzly1OxypUK685yXpq8i4v1";
 		var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&api_key="+apiKey+"&any_kw="+type;
 		
 		$.ajax({
@@ -125,7 +122,7 @@ var DinnerModel = function() {
 	this.searchDishes = function(keyword){
 		loading = true;
 		notifyObservers();
-		var apiKey = "dvxLl271adHi9kSJNj29sNWp256I35Y0";
+		var apiKey = "dvxrV2fipnzly1OxypUK685yXpq8i4v1";
 		var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&title_kw="+keyword+"&api_key="+apiKey;
 		
 		$.ajax({
@@ -161,5 +158,15 @@ var DinnerModel = function() {
 	this.getAllDishes = function() {
 		return dishes;
 	}
+
+  this.removeDishFromMenu = function(id) {
+
+    for(dish in this.menu){
+      if(this.menu[dish].RecipeID == id){
+        this.menu.splice(dish, 1);
+      }
+    }
+
+  }
 
 }

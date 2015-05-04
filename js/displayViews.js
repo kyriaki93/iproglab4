@@ -10,6 +10,7 @@ $("#confirm").click(function(){
     $("#selectDishView").hide();
     $("#exampleViewa").hide();
     $("#menuOverView").show();
+    $("#dishDetailView").hide();
 });
  
 
